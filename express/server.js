@@ -5,6 +5,10 @@ const serverless = require('serverless-http');
 const app = express();
 const bodyParser = require('body-parser');
 
+const getTimeStamp = (): string => {
+    return new Date().toISOString();
+};
+
 const info = (namespace, message, object) => {
     if (object) {
         console.info(`[${getTimeStamp()}] [INFO] [${namespace}] ${message}`, object);
