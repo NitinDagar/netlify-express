@@ -5,7 +5,7 @@ const serverless = require('serverless-http');
 const app = express();
 const bodyParser = require('body-parser');
 
-const info = (namespace: string, message: string, object?: any) => {
+const info = (namespace, message, object) => {
     if (object) {
         console.info(`[${getTimeStamp()}] [INFO] [${namespace}] ${message}`, object);
     } else {
