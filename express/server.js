@@ -5,7 +5,28 @@ const serverless = require('serverless-http');
 const app = express();
 const bodyParser = require('body-parser');
 
+const info = (namespace: string, message: string, object?: any) => {
+    if (object) {
+        console.info(`[${getTimeStamp()}] [INFO] [${namespace}] ${message}`, object);
+    } else {
+        console.info(`[${getTimeStamp()}] [INFO] [${namespace}] ${message}`);
+    }
+};
+
 const router = express.Router();
+
+router.use((req, res, next) => {
+    /** Log the req */
+    info(NAMESPACE, `METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
+
+    res.on('finish', () => {
+        /** Log the res */
+        info(NAMESPACE, `METHOD: [${req.method}] - URL: [${req.url}] - STATUS: [${res.statusCode}] - IP: [${req.socket.remoteAddress}]`);
+    });
+
+    next();
+});
+
 router.get('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.write('<h1>Hello from Express.js!</h1>');
