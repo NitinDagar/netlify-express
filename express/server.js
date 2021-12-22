@@ -5,7 +5,7 @@ const serverless = require('serverless-http');
 const app = express();
 const bodyParser = require('body-parser');
 
-const getTimeStamp = (): string => {
+const getTimeStamp = () => {
     return new Date().toISOString();
 };
 
